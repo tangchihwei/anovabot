@@ -5,30 +5,11 @@ import json
 from pycirculate.anova import AnovaController
 import datetime
 
-token = "xxxxxxx"
-ANOVA_MAC_ADDRESS = "xxxxxx"
+with open ("keys.txt") as f:
+    keys = f.read().splitlines()
 
-
-# ctrl = AnovaController(ANOVA_MAC_ADDRESS)
-# sc = SlackClient(token)
-# if sc.rtm_connect():
-#   while True:
-#     response = sc.rtm_read()
-#     for message_type in response:
-#       if message_type.get('text'):
-#         message = message_type.get('text')
-#         print ctrl.set_temp(float(message))
-#         print ctrl.start_anova()
-#         print ctrl.set_timer(60)
-# #        print ctrl.start_timer()
-#     time.sleep(1)
-# #    if ctrl.read_temp() == 147.2 and ctrl.rea:
-#  #     print ctrl.start_timer()
-#     print ctrl.anova_status()
-# else:
-#   print "connection failed, invalid token?"
-
-
+token = keys[0]
+ANOVA_MAC_ADDRESS = keys[1]
 
 
 class AnovaBot(AnovaController):
@@ -37,9 +18,13 @@ class AnovaBot(AnovaController):
         self.SLACK_CLIENT_TOKEN = slack_token
         self.is_connected = False
         if connect:
-            self.connect()
+            # self.connect()
+            print "connect to Annova"
+        sc = SlackClient(SLACK_CLIENT_TOKEN)
+
     def hello(self):
         return 'hello world'
+
 
 bot = AnovaBot(token, ANOVA_MAC_ADDRESS)
 time.sleep(5)
