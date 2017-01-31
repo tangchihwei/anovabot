@@ -13,23 +13,32 @@ ANOVA_MAC_ADDRESS = keys[1]
 
 
 class AnovaBot(AnovaController):
+    annova_states = ['']
+    slack_client_states
     def __init__(self, slack_token, ANOVA_BLE_ADDRESS, connect=True):
         self.MAC_ADDRESS = ANOVA_BLE_ADDRESS
         self.SLACK_CLIENT_TOKEN = slack_token
         self.is_connected = False
         if connect:
-            # self.connect()
-            print "connect to Annova"
+            self.connect()
+            print "connect to Anova"
         sc = SlackClient(SLACK_CLIENT_TOKEN)
 
     def hello(self):
         return 'hello world'
+    
+    def start(self):
+        while True:
+            response = sc.rtm_read()
+            for message_type in response:
+                if message_type.get('text'):
+                    
 
 
-bot = AnovaBot(token, ANOVA_MAC_ADDRESS)
-time.sleep(5)
-print bot.hello()
-bot.set_temp(147.2)
-bot.start_anova()
+if __name__ == "__main__":
+
+    bot = AnovaBot(token, ANOVA_MAC_ADDRESS)
+    bot.start()
+
 
 
