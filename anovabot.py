@@ -31,8 +31,12 @@ class AnovaBot(AnovaController):
         while True:
             response = sc.rtm_read()
             for message_type in response:
-                if message_type.get('text'):
-                    
+                #parse for message_type
+                #control anova
+                #show anova status
+                #show slackbot info
+
+
 
 
 if __name__ == "__main__":
